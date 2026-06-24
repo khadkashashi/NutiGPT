@@ -21,7 +21,7 @@
             </div>
 
             <nav class="mt-4">
-                <a href="" class="block px-4 py-3 hover:bg-slate-700">
+                <a href="{% url 'dashboard' %}" class="block px-4 py-3 hover:bg-slate-700">
                     Dashboard
                 </a>
 
@@ -60,8 +60,40 @@
 
             <!-- Page Content -->
             <main class="flex-1 p-6 overflow-y-auto">
-                {% block content %}
-                {% endblock %}
+  {% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+
+        {% for card in cards %}
+            <div class="flex justify-between items-center py-1 border-b last:border-b-0">
+                <span class="text-gray-600 font-medium">
+                    {{ card.title }}
+                </span>
+
+                <span class="bg-blue-100 text-blue-700 px-1 py-1 rounded-full font-bold">
+                    {{ card.count }}
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+        {% for card in cards %}
+            <div class="flex justify-between items-center py-1 border-b last:border-b-0">
+                <span class="text-gray-600 font-medium">
+                    {{ card.title }}
+                </span>
+
+                <span class="bg-blue-100 text-blue-700 px-1 py-1 rounded-full font-bold">
+                    {{ card.count }}
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
             </main>
 
         </div>
