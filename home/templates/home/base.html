@@ -25,12 +25,21 @@
                     Dashboard
                 </a>
 
-                <a href="" class="block px-4 py-3 hover:bg-slate-700">
-                    About
+                <a href="{% url 'meal-list' %}" class="block px-4 py-3 hover:bg-slate-700">
+                    Meal
                 </a>
 
-                <a href="#" class="block px-4 py-3 hover:bg-slate-700">
-                    Setting
+                <a href="{% url 'mealplan-list' %}" class="block px-4 py-3 hover:bg-slate-700">
+                    Meal Plan
+                </a>
+                 <a href="#" class="block px-4 py-3 hover:bg-slate-700">
+                    Meal Plan items
+                </a>
+                 <a href="{% url 'ingredient-list' %}" class="block px-4 py-3 hover:bg-slate-700">
+                   Integrident
+                </a>
+                 <a href="#" class="block px-4 py-3 hover:bg-slate-700">
+                    Meal Integrident
                 </a>
             </nav>
         </aside>

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from meals.models import Meal, MealIngredients, MealPlan, MealPlanItems, Ingredient
+from meal.models import Meal, MealIngredients, MealPlan, MealPlanItems, Ingredient
 
 # Create your views here.
 
