@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'meal',
     'home',
+    'subscriptions',
 ]
 
 MIDDLEWARE = [
