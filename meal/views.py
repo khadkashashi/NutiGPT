@@ -1,35 +1,42 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from meal.models import Meal, MealIngredients, Ingredient
-from meal.forms import MealForm, MealIngredientsForm, MealIngredients, IngredientForm, MealPlanForm, MealPlan
-from meal.service import generate_data
-import json 
-import ollama
+
+from meal.models import Meal , Ingredient
+from meal.forms import MealForm, IngredientForm
+from meal.models import Meal, MealPlan
+from meal.forms import MealForm, MealPlanForm
+from meal.service import generate_json_data
+import json # Create your views here.
+
+#-------------------- Meal view --------------------
 
 class MealView(ListView):
     model = Meal
+    paginate_by = 10
     template_name = 'meal/index.html'
     context_object_name = 'meal'
+    ordering = 'meal_type'
+
+
 
 class MealCreateView(CreateView):
-    model = Meal
+    model=Meal
     template_name = 'meal/create.html'
     form_class = MealForm
     success_url = '/meal'
 
-class MealUpdateView(UpdateView):   
-    model = Meal
-    template_name = 'meal/create.html'
+
+class MealUpdateView(UpdateView):
+    model=Meal
+    template_name = 'meal/update.html'
     form_class = MealForm
     success_url = '/meal'
+
 
 class MealDeleteView(DeleteView):
     model=Meal
     success_url = '/meal'
-
-
-
 
 class IngredientListView(ListView):
     model = Ingredient
@@ -57,6 +64,8 @@ class IngredientDeleteView(DeleteView):
     success_url = "/meal/ingredients/"
 
 
+#-------------------- Meal Plane view --------------------
+
 class MealPlanView(ListView):
     model = MealPlan
     paginate_by = 10
@@ -83,34 +92,20 @@ class MealPlanDeleteView(DeleteView):
     template_name = 'mealPlan/delete.html'
     success_url = '/meal/plan/list'
 
-class MealIngredientsView(ListView):
-    model = MealIngredients
-    paginate_by = 10
-    template_name = 'meal/ingredients.html'
-    context_object_name = 'ingredients'
 
 
-class MealIngredientsCreateView(CreateView):
-    model = MealIngredients
-    template_name = 'meal/ingredients_create.html'
-    form_class = MealIngredientsForm
-    success_url = '/meal/ingredients/'
-
-
-class MealIngredientsUpdateView(UpdateView):
-    model = MealIngredients
-    template_name = 'meal/ingredients_update.html'
-    form_class = MealIngredientsForm
-    success_url = '/meal/ingredients/'
-
-
-class MealIngredientsDeleteView(DeleteView):
-    model = MealIngredients
-    template_name = 'meal/ingredients_delete.html'
-    success_url = '/meal/ingredients/'
 
 
 def generate_ai_data(request):
-    data = generate_data()
-    print(json.loads(data))
-    return render(request,'ingredient/ai.html', context={"data":data})
+    data = generate_json_data()
+    data2 = json.loads(data)
+    return render(request,'ingredient/ai.html', context={"data":data2})
+
+
+def create_ai_ingredients(request, *args, **kwargs):
+    data = kwargs.get('data')
+
+    for i in data:
+        print(i)
+        # Ingredient.objects.create(**i)
+    return redirect('meal/ingredients/')
