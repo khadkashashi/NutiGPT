@@ -4,7 +4,7 @@ from .views import MealCreateView, MealDeleteView, MealUpdateView, MealView,    
 
 from .views import MealCreateView, MealDeleteView, MealUpdateView, MealView, IngredientListView, IngredientCreateView, IngredientUpdateView, IngredientDeleteView
 
-from .views import MealCreateView, MealDeleteView, MealPlanCreateView, MealPlanDeleteView, MealPlanUpdateView, MealPlanView, MealUpdateView, MealView
+from .views import MealCreateView, MealDeleteView, MealPlanCreateView, MealPlanDeleteView, MealPlanUpdateView, MealPlanView, MealUpdateView, MealView,generate_ai_data
 
 urlpatterns = [
     path('', MealView.as_view(), name="meal-list"),
@@ -25,6 +25,7 @@ urlpatterns = [
     path('plan/create/', MealPlanCreateView.as_view(), name='mealplan-create'),
     path('plan/update/<int:pk>/', MealPlanUpdateView.as_view(), name='mealplan-update'),
     path('plan/delete/<int:pk>/', MealPlanDeleteView.as_view(), name='mealplan-delete'),
-
-
+     path('ai',generate_ai_data,name="ai")
 ]
+
+

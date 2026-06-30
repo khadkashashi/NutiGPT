@@ -2,7 +2,10 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from meal.models import Meal, MealIngredients, Ingredient
-from meal.forms import MealForm, MealIngredientsForm, MealIngredients, IngredientForm, MealPlanForm
+from meal.forms import MealForm, MealIngredientsForm, MealIngredients, IngredientForm, MealPlanForm, MealPlan
+from meal.service import generate_data
+import json 
+import ollama
 
 class MealView(ListView):
     model = Meal
@@ -105,3 +108,9 @@ class MealIngredientsDeleteView(DeleteView):
     model = MealIngredients
     template_name = 'meal/ingredients_delete.html'
     success_url = '/meal/ingredients/'
+
+
+def generate_ai_data(request):
+    data = generate_data()
+    print(json.loads(data))
+    return render(request,'ingredient/ai.html', context={"data":data})
